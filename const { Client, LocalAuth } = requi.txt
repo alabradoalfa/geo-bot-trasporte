@@ -1,0 +1,15 @@
+   const { Client, LocalAuth } = require('whatsapp-web.js');
+   const qrcode = require('qrcode-terminal');
+   const client = new Client({
+     authStrategy: new LocalAuth(),
+     puppeteer: { args: ['--no-sandbox','--disable-setuid-sandbox','--disable-dev-shm-usage'] }
+   });
+   client.on('qr', qr => { qrcode.generate(qr, {small: true}); });
+   client.on('ready', () => console.log('GEO BOT LISTO 6391947697'));
+   client.on('message', async msg => {
+     const t = msg.body.toUpperCase();
+     if(t.includes('FALTA')) await msg.reply('Recibido FALTA - Se cancela van Domingo 6am HNK - GEO');
+     if(t.includes('AVISO FAMILIAR')) await msg.reply('Gracias aviso familiar registrado - GEO');
+     if(t.includes('VOY') && t.includes('HNK')) await msg.reply('Recibido VOY confirmado Domingo 6am HNK - GEO');
+   });
+   client.initialize();
